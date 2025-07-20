@@ -1,0 +1,62 @@
+@use "@styles/base/_mixins.scss" as *;
+
+.teacher-card {
+	display: flex;
+	align-items: center;
+	column-gap: toRem(15);
+	box-shadow: 0 0 toRem(8) 0 rgba(0, 0, 0, 0.25);
+	background-color: #fff;
+	padding: toRem(12);
+	border-radius: toRem(4);
+	overflow: hidden;
+	position: relative;
+	transition: box-shadow 0.3s;
+	&:has(.button--green) {
+		box-shadow: 0 0 toRem(8) 0 rgba(67, 184, 108, 0.9);
+	}
+	// .teacher-card__img
+	&__img {
+		flex-shrink: 0;
+		width: toRem(60);
+		aspect-ratio: 1;
+		border-radius: 50%;
+		overflow: hidden;
+		img {
+			transition: transform 0.3s;
+			will-change: transform;
+			@media (any-hover: hover) {
+				&:hover {
+					transform: scale(1.06);
+				}
+			}
+		}
+	}
+	// .teacher-card__body
+	&__body {
+		flex-grow: 1;
+	}
+	// .teacher-card__name
+	&__name {
+		margin-bottom: toRem(7);
+		color: var(--accent);
+		font-weight: 600;
+		font-size: toRem(18);
+		a {
+			transition: color 0.3s;
+			@media (any-hover: hover) {
+				&:hover {
+					color: var(--green);
+				}
+			}
+		}
+	}
+	// .teacher-card__subject
+	&__subject {
+		span {
+			font-weight: 600;
+		}
+	}
+	// .teacher-card__button
+	&__button {
+	}
+}

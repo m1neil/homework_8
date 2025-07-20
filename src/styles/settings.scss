@@ -1,0 +1,70 @@
+@use "sass:math";
+@use "./base/mixins" as mx;
+@use "./base/variables" as vars;
+
+// Стилі тега BODY ============================================================================================================================================================================================================================================================================================================================================================================================
+body {
+	color: var(--text-primary);
+	background-color: var(--bg-primary);
+	// font-size: vars.$fontSize;
+	// scrollbar-gutter: stable;
+	// Скролл заблоковано
+	.lock & {
+		overflow: hidden;
+		touch-action: none;
+		overscroll-behavior: none;
+	}
+	// Сайт завантажений
+	.loaded & {
+	}
+}
+// Оболонка wrapper ============================================================================================================================================================================================================================================================================================================================================================================================================================================
+.wrapper,
+#root {
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	@supports (overflow: clip) {
+		overflow: clip;
+	}
+	// Притискаємо footer
+	> main {
+		flex: 1 1 auto;
+		& > section {
+			@include mx.adaptiveValue("padding-block", 77, 30, 0, vars.$containerWidth, 600);
+		}
+	}
+	// Фікс для слайдерів
+	> * {
+		min-width: 0;
+	}
+}
+// Обмежуючий контейнер ======================================================================================================================================================================================================================
+
+// (i) Стилі будуть застосовуватись до
+// всіх класів, що містять *__container
+// Наприклад header__container, main__container і т.п.
+// Сніппет (HTML): cnt
+
+// Чуйна
+[class*="__container"] {
+	@if (vars.$maxWidthContainer>0) {
+		max-width: mx.toRem(vars.$containerWidth);
+		margin-inline: auto;
+	}
+	@if (vars.$containerPadding>0) {
+		@if (vars.$maxWidthContainer>0) {
+			padding-inline: mx.toRem(math.div(vars.$containerPadding, 2));
+		} @else {
+			@include mx.adaptiveValue("padding-left", math.div(vars.$containerPadding, 2), 15);
+			@include mx.adaptiveValue("padding-right", math.div(vars.$containerPadding, 2), 15);
+		}
+	}
+}
+
+// (i) Експерементальний функціонал
+// Заміна обмежуючому контейнеру
+[class*="--gc"] {
+	@include mx.gridContainer();
+}

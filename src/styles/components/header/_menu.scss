@@ -1,0 +1,50 @@
+@use "@styles/base/_mixins.scss" as *;
+
+.menu {
+	// .menu__body
+	&__body {
+	}
+	// .menu__list
+	&__list {
+		display: flex;
+		justify-content: flex-end;
+		flex-wrap: wrap;
+		column-gap: toRem(20);
+	}
+	// .menu__item
+	&__item {
+	}
+	// .menu__link
+	&__link {
+		position: relative;
+		font-weight: 600;
+		font-size: toRem(16);
+		line-height: 1.33333;
+		color: #fff;
+		transition: color 0.3s;
+		&::before {
+			content: "";
+			position: absolute;
+			width: 0;
+			height: toRem(2);
+			bottom: toRem(-2);
+			left: 0;
+			background-color: #fff;
+			border-radius: toRem(2);
+			transition: width 0.3s;
+		}
+		// .menu__link--active
+		&--active {
+			&::before {
+				width: 100%;
+			}
+		}
+		@media (any-hover: hover) {
+			&:hover {
+				&::before {
+					width: 100%;
+				}
+			}
+		}
+	}
+}

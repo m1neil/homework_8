@@ -1,0 +1,23 @@
+@forward "./colors-palette";
+@use "./mixins" as mx;
+
+$fontFamily: "Montserrat", sans-serif;
+// $fontSize: mx.toRem(14);
+// Мінімальна ширина сторінки
+$minWidth: 320;
+// Ширина полотна (макету)
+$maxWidth: 1440;
+// Ширина обмежуючого контейнера (0 = немає обмеження)
+$maxWidthContainer: 1245;
+// Загальний відступ у контейнера
+// (30 = по 15px ліворуч і праворуч, 0 = немає відступу)
+$containerPadding: 30;
+
+// Ширина спрацьовування першого брейкпоінту
+$containerWidth: $maxWidthContainer + $containerPadding;
+
+// Брейк-поїнти
+$pc: mx.toEm($containerWidth); // ПК, ноутбуки, деякі планшети у горизонтальному положенні
+$tablet: mx.toEm(991.98); // Планшети, деякі телефони в горизонтальному положенні
+$mobile: mx.toEm(767.98); // Телефони L
+$mobileSmall: mx.toEm(479.98); // Телефони S

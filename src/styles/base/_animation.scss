@@ -1,0 +1,17 @@
+@use "./mixins" as *;
+
+@keyframes smooth-show {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes show-element {
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}

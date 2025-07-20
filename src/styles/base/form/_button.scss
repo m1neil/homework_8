@@ -1,0 +1,35 @@
+@use "@styles/base/mixins" as *;
+
+.button {
+	border-radius: toRem(4);
+	padding: toRem(6) toRem(18);
+	font-weight: 600;
+	font-size: toRem(14);
+	line-height: 1.71429;
+	color: #fff;
+	text-align: center;
+	background-color: var(--bg-accent);
+	border: toRem(2) solid var(--accent);
+	transition:
+		background-color 0.3s,
+		color 0.3s;
+	&--green {
+		background-color: var(--green);
+		border-color: var(--green);
+	}
+	&--red {
+		background-color: var(--red);
+		border-color: var(--red);
+	}
+	&:disabled {
+		background-color: gray;
+		border-color: gray;
+		cursor: default;
+	}
+	@media (any-hover: hover) {
+		&:hover:not(:disabled) {
+			color: var(--text-accent);
+			background-color: #fff;
+		}
+	}
+}

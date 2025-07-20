@@ -1,0 +1,34 @@
+@use "@styles/base/_mixins.scss" as *;
+
+.home {
+	// .home__container
+	&__container {
+	}
+	// .home__title
+	&__title {
+		margin-bottom: toRem(25);
+	}
+	// .home__text
+	&__text {
+		margin-bottom: toRem(15);
+	}
+	// .home__actions
+	&__actions {
+		@media (min-width: toEm(436)) {
+			display: flex;
+			column-gap: toRem(15);
+		}
+		@media (max-width: toEm(435)) {
+			display: block;
+			& > *:not(:last-child) {
+				margin-bottom: toRem(12);
+			}
+		}
+	}
+	// .home__link
+	&__link {
+		@media (max-width: toEm(435)) {
+			display: block;
+		}
+	}
+}

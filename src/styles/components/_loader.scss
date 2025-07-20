@@ -1,0 +1,95 @@
+/* HTML: <div class="loader"></div> */
+@use "@styles/base/mixins" as *;
+
+.loader {
+	width: 40px;
+	aspect-ratio: 1;
+	--c: no-repeat linear-gradient(var(--bg-accent) 0 0);
+	background:
+		var(--c) 0 0,
+		var(--c) 0 100%,
+		var(--c) 50% 0,
+		var(--c) 50% 100%,
+		var(--c) 100% 0,
+		var(--c) 100% 100%;
+	background-size: toRem(8) 50%;
+	animation: l7-0 1s infinite;
+	position: relative;
+	overflow: hidden;
+}
+.loader:before {
+	content: "";
+	position: absolute;
+	width: toRem(8);
+	height: toRem(8);
+	border-radius: 50%;
+	background-color: var(--bg-accent);
+	top: calc(50% - toRem(4));
+	left: toRem(-8);
+	animation: inherit;
+	animation-name: l7-1;
+}
+
+@keyframes l7-0 {
+	16.67% {
+		background-size:
+			toRem(8) 30%,
+			toRem(8) 30%,
+			toRem(8) 50%,
+			toRem(8) 50%,
+			toRem(8) 50%,
+			toRem(8) 50%;
+	}
+	33.33% {
+		background-size:
+			toRem(8) 30%,
+			toRem(8) 30%,
+			toRem(8) 30%,
+			toRem(8) 30%,
+			toRem(8) 50%,
+			toRem(8) 50%;
+	}
+	50% {
+		background-size:
+			toRem(8) 30%,
+			toRem(8) 30%,
+			toRem(8) 30%,
+			toRem(8) 30%,
+			toRem(8) 30%,
+			toRem(8) 30%;
+	}
+	66.67% {
+		background-size:
+			toRem(8) 50%,
+			toRem(8) 50%,
+			toRem(8) 30%,
+			toRem(8) 30%,
+			toRem(8) 30%,
+			toRem(8) 30%;
+	}
+	83.33% {
+		background-size:
+			toRem(8) 50%,
+			toRem(8) 50%,
+			toRem(8) 50%,
+			toRem(8) 50%,
+			toRem(8) 30%,
+			toRem(8) 30%;
+	}
+}
+
+@keyframes l7-1 {
+	20% {
+		left: 0px;
+	}
+	40% {
+		left: calc(50% - toRem(4));
+	}
+	60% {
+		left: calc(100% - toRem(8));
+	}
+	80%,
+	100% {
+		left: 100%;
+	}
+}

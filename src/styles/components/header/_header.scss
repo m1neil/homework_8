@@ -1,0 +1,31 @@
+@use "@styles/base/mixins" as *;
+@forward "./menu";
+
+.header {
+	position: sticky;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 50;
+	padding-block: toRem(21);
+	background-color: var(--bg-accent);
+	color: #fff;
+	// .header__container
+	&__container {
+		display: flex;
+		align-items: center;
+		column-gap: toRem(30);
+	}
+	// .header__logo
+	&__logo {
+		font-weight: 700;
+		font-size: toRem(25);
+		line-height: 0.79111;
+		letter-spacing: 0.02rem;
+	}
+	// .header__menu
+	&__menu {
+		flex: 1 1 auto;
+	}
+}

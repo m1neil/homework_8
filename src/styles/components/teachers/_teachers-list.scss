@@ -1,0 +1,64 @@
+@use "@styles/base/_mixins.scss" as *;
+@use "@styles/base/animation" as *;
+
+.teachers {
+	// .teachers__container
+	&__container {
+	}
+	// .teachers__title
+	&__title {
+		margin-bottom: toRem(25);
+	}
+	// .teachers__actions
+	&__actions {
+		&:not(:last-child) {
+			margin-bottom: toRem(30);
+		}
+		@media (min-width: toEm(436)) {
+			display: flex;
+			column-gap: toRem(15);
+		}
+	}
+	// .teachers__button
+	&__button {
+		@media (max-width: toEm(435)) {
+			width: 100%;
+			&:not(:last-child) {
+				margin-bottom: toRem(12);
+			}
+		}
+	}
+	// .teachers__list
+	&__list {
+	}
+	// .teachers__loader
+	&__loader {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-height: toRem(139);
+	}
+}
+
+.list-teachers {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: toRem(20);
+	// .list-teachers__item
+	&__item {
+		animation: smooth-show 0.7s forwards ease;
+		opacity: 0;
+		.teacher-card:not(:last-child) {
+			margin-bottom: toRem(15);
+		}
+	}
+	// .list-teachers__actions
+	&__actions {
+		display: flex;
+		column-gap: toRem(15);
+	}
+	// .list-teachers__actions
+	&__button {
+		flex: 1 1 auto;
+	}
+}
