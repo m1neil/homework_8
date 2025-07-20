@@ -20,6 +20,19 @@ const useTeachersApi = (isInitLoading = false) => {
 		}
 	}, [])
 
+	const getTeacherById = useCallback(async id => {
+		setIsLoading(true)
+		setError(null)
+		try {
+			const response = await axios.get(apiRoutes.getTeacherById(id))
+			setData(response.data)
+		} catch (error) {
+			setError(error)
+		} finally {
+			setIsLoading(false)
+		}
+	}, [])
+
 	const deleteTeacherById = useCallback(async id => {
 		setError(null)
 		try {
@@ -61,7 +74,8 @@ const useTeachersApi = (isInitLoading = false) => {
 		getAllTeachers,
 		deleteTeacherById,
 		setNewTeacher,
-		updateTeacher
+		updateTeacher,
+		getTeacherById
 	}
 }
 

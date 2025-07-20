@@ -3,6 +3,8 @@ import { useLocation } from 'react-router'
 import ErrorMessage from '../../components/ErrorMessage'
 import useTeachersApi from '../../hooks/useTeachersApi'
 
+const isEqualObjects = (a, b) => JSON.stringify(a) === JSON.stringify(b)
+
 function TeachersForm() {
 	const { state } = useLocation()
 	const [teacher, setTeacher] = useState(() =>
@@ -61,8 +63,6 @@ function TeachersForm() {
 			state.teacher = { ...transformTeacher }
 		}
 	}
-
-	const isEqualObjects = (a, b) => JSON.stringify(a) === JSON.stringify(b)
 
 	const cancelData = () => {
 		setTeacher(prevTeacher => ({

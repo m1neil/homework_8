@@ -1,0 +1,31 @@
+@use "@styles/base/mixins" as *;
+
+.detail {
+	// .detail__container
+	&__container {
+	}
+	// .detail__img
+	&__img {
+		width: toRem(90);
+		aspect-ratio: 1;
+		border-radius: 50%;
+		overflow: hidden;
+		margin-bottom: toRem(10);
+	}
+	// .detail__title
+	&__title {
+		&:not(:last-child) {
+			margin-bottom: toRem(25);
+		}
+	}
+	// .detail__subject
+	&__subject {
+		font-size: toRem(18);
+		span {
+			font-weight: 600;
+		}
+		&:not(:last-child) {
+			margin-bottom: toRem(20);
+		}
+	}
+}

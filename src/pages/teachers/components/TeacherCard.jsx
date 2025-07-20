@@ -6,13 +6,19 @@ function TeacherCard({ id, name, subject, photo, isSelect, onSelect }) {
 		<article className="teacher-card">
 			<Link
 				to={frontRoutes.navigate.teachers.getDetail(id)}
+				state={{ teacher: { name, subject, photo } }}
 				className="teacher-card__img"
 			>
 				<img className="ibg" src={photo} alt="Photo of the teacher-card" />
 			</Link>
 			<div className="teacher-card__body">
 				<h3 className="teacher-card__name">
-					<Link to={frontRoutes.navigate.teachers.getDetail(id)}>{name}</Link>
+					<Link
+						to={frontRoutes.navigate.teachers.getDetail(id)}
+						state={{ teacher: { name, subject, photo } }}
+					>
+						{name}
+					</Link>
 				</h3>
 				<div className="teacher-card__subject">
 					<span>Subject:</span> {subject}
