@@ -1,0 +1,23 @@
+@use "@styles/base/mixins" as *;
+
+.input {
+	border: toRem(1) solid #b4b4b4;
+	border-radius: toRem(4);
+	padding: toRem(12);
+	height: toRem(38);
+	font-size: toRem(14);
+	color: #000;
+	transition: outline-color 0.3s;
+	outline: toRem(2) solid transparent;
+	outline-offset: toRem(-1);
+	&::placeholder {
+		transition: opacity 0.3s;
+		color: #666;
+	}
+	&:focus {
+		outline-color: var(--accent);
+		&::placeholder {
+			opacity: 0;
+		}
+	}
+}

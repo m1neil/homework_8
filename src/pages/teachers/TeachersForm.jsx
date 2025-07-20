@@ -1,11 +1,15 @@
 import { useState } from 'react'
 import { useLocation } from 'react-router'
+import ErrorMessage from '../../components/ErrorMessage'
+import useTeachersApi from '../../hooks/useTeachersApi'
 
 function TeachersForm() {
 	const { state } = useLocation()
-	const [teacher, setTeacher] = useState(
-		() => state?.teacher ?? { name: '', subject: '', photo: '' }
+	const [teacher, setTeacher] = useState(() =>
+		state?.teacher ? { ...state.teacher } : { name: '', subject: '', photo: '' }
 	)
+	const { isLoading, error, setNewTeacher, updateTeacher } = useTeachersApi()
+	const [errorData, setErrorData] = useState('')
 
 	const handleTeacherChange = e => {
 		const input = e.target
@@ -14,18 +18,66 @@ function TeachersForm() {
 		setTeacher(prevTeacher => ({ ...prevTeacher, [nameField]: value }))
 	}
 
-	const onSubmit = e => {
-		e.preventDefault()
-		if (!isRequiredFieldsFilled()) return
-		const methodFetch = state?.teacher ? 'put' : 'post'
+	const isValidTeacherPhoto = () => {
+		const regExp = /^(https?:\/\/.*\.(jpg|jpeg|webp|png))$/
+		const isValidAddress = regExp.test(teacher.photo)
+		if (!isValidAddress) setErrorData('Not a valid photo address!')
+		else setErrorData('')
+		return isValidAddress
 	}
 
-	const isRequiredFieldsFilled = () => {
-		return teacher.name && teacher.subject
+	const isFilledRequiredFields = () => {
+		return teacher.name.trim() && teacher.subject.trim()
 	}
+
+	const onSubmit = async e => {
+		e.preventDefault()
+
+		if (!isFilledRequiredFields()) {
+			setErrorData(
+				'Check the filling of mandatory fields (the name of the teacher and the subject that he leads)'
+			)
+			return
+		} else setErrorData('')
+		if (teacher.photo.trim() && !isValidTeacherPhoto()) return
+
+		const methodFetch = state?.teacher ? 'put' : 'post'
+		console.log('teacher', teacher)
+
+		if (methodFetch === 'post') {
+			await setNewTeacher(teacher)
+			cancelData()
+		} else {
+			await updateTeacher(teacher)
+			state.teacher = { ...teacher }
+		}
+	}
+
+	const isEqualObjects = (a, b) => JSON.stringify(a) === JSON.stringify(b)
 
 	const cancelData = () => {
-		setTeacher({ name: '', subject: '', photo: '' })
+		setTeacher(prevTeacher => ({
+			...prevTeacher,
+			name: '',
+			subject: '',
+			photo: ''
+		}))
+	}
+
+	const getTextButtonSubmit = () => {
+		let btnText
+		if (!isLoading)
+			btnText = state?.teacher ? 'Update teachers' : 'Add new teacher'
+		else btnText = 'Sending data ...'
+		return btnText
+	}
+
+	const isCanClear = () => {
+		return teacher.name.trim() || teacher.subject.trim() || teacher.photo.trim()
+	}
+
+	const onRemoveError = () => {
+		if (errorData) setErrorData('')
 	}
 
 	return (
@@ -35,55 +87,75 @@ function TeachersForm() {
 					{state?.teacher ? 'Teacher editing' : 'Add a new teacher'}
 				</h1>
 				<form onSubmit={onSubmit} action="#" className="editor__form form">
-					<div className="form__row">
-						<label htmlFor="#" className="form__label">
-							Имя
-						</label>
-						<input
-							name="name"
-							value={teacher.name}
-							type="text"
-							className="form__input input"
-							onChange={handleTeacherChange}
-						/>
-					</div>
-					<div className="form__row">
-						<label htmlFor="#" className="form__label">
-							Предмет
-						</label>
-						<input
-							name="subject"
-							value={teacher.subject}
-							type="text"
-							className="form__input input"
-							onChange={handleTeacherChange}
-						/>
-					</div>
-					<div className="form__row">
-						<label htmlFor="#" className="form__label">
-							Фото
-						</label>
-						<input
-							name="photo"
-							value={teacher.photo}
-							type="text"
-							className="form__input input"
-							onChange={handleTeacherChange}
-						/>
+					<div className="form__body">
+						<div className="form__row">
+							<label htmlFor="name" className="form__label">
+								Имя
+							</label>
+							<input
+								name="name"
+								id="name"
+								value={teacher.name}
+								type="text"
+								className="form__input input"
+								placeholder="Keep the name of the teacher"
+								onChange={handleTeacherChange}
+								onFocus={onRemoveError}
+							/>
+						</div>
+						<div className="form__row">
+							<label htmlFor="subject" className="form__label">
+								Предмет
+							</label>
+							<input
+								name="subject"
+								id="subject"
+								value={teacher.subject}
+								type="text"
+								className="form__input input"
+								placeholder="The Vedas subject the teacher"
+								onChange={handleTeacherChange}
+								onFocus={onRemoveError}
+							/>
+						</div>
+						<div className="form__row">
+							<label htmlFor="photo" className="form__label">
+								Фото
+							</label>
+							<input
+								name="photo"
+								id="photo"
+								value={teacher.photo}
+								type="text"
+								className="form__input input"
+								placeholder="Enter URL photos"
+								onChange={handleTeacherChange}
+								onFocus={onRemoveError}
+							/>
+						</div>
 					</div>
 					<div className="form__actions">
-						<button type="submit" className="form__button button button--green">
-							{state?.teacher ? 'Update teachers' : 'Add new teacher'}
+						<button
+							disabled={
+								isLoading ||
+								(state?.teacher && isEqualObjects(teacher, state?.teacher))
+							}
+							type="submit"
+							className="form__button button button--green"
+						>
+							{getTextButtonSubmit()}
 						</button>
 						<button
 							type="button"
 							className="form__button button"
-							disabled={!isRequiredFieldsFilled()}
+							disabled={!isCanClear()}
 							onClick={cancelData}
 						>
-							Cancel
+							Clear
 						</button>
 					</div>
+					{errorData && <ErrorMessage text={errorData} />}
+					{error && <ErrorMessage text={error} />}
 				</form>
 			</div>
 		</section>

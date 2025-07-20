@@ -1,1 +1,36 @@
+@use "@styles/base/mixins" as *;
 @forward "./button";
+@forward "./input";
+
+.form {
+	// .form__body
+	&__body {
+		margin-bottom: toRem(20);
+	}
+	// .form__row
+	&__row {
+		&:not(:last-child) {
+			margin-bottom: toRem(15);
+		}
+	}
+	// .form__label
+	&__label {
+		font-weight: 600;
+		margin-bottom: toRem(8);
+		cursor: pointer;
+	}
+	// .form__input
+	&__input {
+	}
+	// .form__actions
+	&__actions {
+		display: flex;
+		column-gap: toRem(15);
+		&:not(:last-child) {
+			margin-bottom: toRem(15);
+		}
+	}
+	// .form__button
+	&__button {
+	}
+}

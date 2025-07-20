@@ -1,0 +1,14 @@
+@use "@styles/base/mixins" as *;
+
+.editor {
+	// .editor__container
+	&__container {
+	}
+	// .editor__title
+	&__title {
+		margin-bottom: toRem(25);
+	}
+	// .editor__form
+	&__form {
+	}
+}

@@ -2,6 +2,7 @@ import Loader from '@components/Loader'
 import useTeachersApi from '@src/hooks/useTeachersApi'
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router'
+import ErrorMessage from '../../components/ErrorMessage'
 import frontRoutes from '../../routes/frontRoutes'
 import ListTeacher from './components/ListTeacher'
 
@@ -54,7 +55,7 @@ function TeachersList() {
 			</div>
 		)
 	} else if (error) {
-		content = <div className="error">{error.message}</div>
+		content = <ErrorMessage text={error.message} />
 	} else
 		content = (
 			<ListTeacher

@@ -8,6 +8,7 @@ import TeachersList from '@pages/teachers/TeachersList'
 import { Route, Routes } from 'react-router'
 import MainLayout from '../layouts/MainLayout'
 import SecondLayout from '../layouts/SecondLayout'
+import Page404 from '../pages/Page404'
 import frontRoutes from './frontRoutes'
 
 function AppRoutes() {
@@ -29,6 +30,7 @@ function AppRoutes() {
 			<Route element={<SecondLayout />}>
 				<Route path={pages.aboutApp} element={<AboutApp />} />
 				<Route path={pages.aboutDev} element={<AboutDev />} />
+				<Route path="*" element={<Page404 />} />
 			</Route>
 		</Routes>
 	)

@@ -29,7 +29,40 @@ const useTeachersApi = (isInitLoading = false) => {
 		}
 	}, [])
 
-	return { data, isLoading, error, setData, getAllTeachers, deleteTeacherById }
+	const setNewTeacher = useCallback(async newTeacher => {
+		setIsLoading(true)
+		setError(null)
+		try {
+			await axios.post(apiRoutes.setNewTeacher, newTeacher)
+		} catch (error) {
+			setError(error)
+		} finally {
+			setIsLoading(false)
+		}
+	}, [])
+
+	const updateTeacher = useCallback(async teacher => {
+		setIsLoading(true)
+		setError(null)
+		try {
+			await axios.put(apiRoutes.updateTeacherById(teacher.id), teacher)
+		} catch (error) {
+			setError(error)
+		} finally {
+			setIsLoading(false)
+		}
+	}, [])
+
+	return {
+		data,
+		isLoading,
+		error,
+		setData,
+		getAllTeachers,
+		deleteTeacherById,
+		setNewTeacher,
+		updateTeacher
+	}
 }
 
 export default useTeachersApi
