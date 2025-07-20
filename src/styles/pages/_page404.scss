@@ -1,0 +1,21 @@
+@use "@styles/base/mixins" as *;
+
+.page404 {
+	min-height: 100svh;
+	display: flex;
+	align-items: center;
+	// .page404__container
+	&__container {
+		flex-grow: 1;
+		text-align: center;
+	}
+	// .page404__title
+	&__title {
+		font-size: toRem(120);
+		font-weight: 700;
+		color: var(--green);
+		&:not(:last-child) {
+			margin-bottom: toRem(20);
+		}
+	}
+}

@@ -30,6 +30,15 @@ function TeachersForm() {
 		return teacher.name.trim() && teacher.subject.trim()
 	}
 
+	const trimTeacher = () => {
+		const transformTeacher = {}
+		for (const key in teacher) {
+			const value = teacher[key]
+			transformTeacher[key] = typeof value === 'string' ? value.trim() : value
+		}
+		return transformTeacher
+	}
+
 	const onSubmit = async e => {
 		e.preventDefault()
 
@@ -42,14 +51,14 @@ function TeachersForm() {
 		if (teacher.photo.trim() && !isValidTeacherPhoto()) return
 
 		const methodFetch = state?.teacher ? 'put' : 'post'
-		console.log('teacher', teacher)
+		const transformTeacher = trimTeacher()
 
 		if (methodFetch === 'post') {
-			await setNewTeacher(teacher)
+			await setNewTeacher(transformTeacher)
 			cancelData()
 		} else {
-			await updateTeacher(teacher)
-			state.teacher = { ...teacher }
+			await updateTeacher(transformTeacher)
+			state.teacher = { ...transformTeacher }
 		}
 	}
 

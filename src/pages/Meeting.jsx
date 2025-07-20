@@ -4,7 +4,6 @@ import ListTeacher from './teachers/components/ListTeacher'
 
 function Meeting() {
 	const { state } = useLocation()
-	console.log(state?.teachers)
 
 	return (
 		<section className="meeting">

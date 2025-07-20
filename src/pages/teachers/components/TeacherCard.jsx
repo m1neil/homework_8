@@ -2,8 +2,6 @@ import { Link } from 'react-router'
 import frontRoutes from '../../../routes/frontRoutes'
 
 function TeacherCard({ id, name, subject, photo, isSelect, onSelect }) {
-	console.log('renderCard')
-
 	return (
 		<article className="teacher-card">
 			<Link
