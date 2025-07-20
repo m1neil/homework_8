@@ -71,7 +71,10 @@ function TeachersList() {
 			<div className="teachers__container">
 				<h1 className="teachers__title title">List of teachers</h1>
 				<div className="teachers__actions">
-					<Link className="teachers__button button button--green">
+					<Link
+						to={frontRoutes.navigate.teachers.new}
+						className="teachers__button button button--green"
+					>
 						Add new teacher
 					</Link>
 					{teachers.length > 0 && (

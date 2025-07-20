@@ -1,0 +1,26 @@
+@use "@styles/base/mixins" as *;
+
+.meeting {
+	// .meeting__container
+	&__container {
+	}
+	// .meeting__title
+	&__title {
+		margin-bottom: toRem(25);
+	}
+	// .meeting__info
+	&__info {
+		&:not(:last-child) {
+			margin-bottom: toRem(25);
+		}
+	}
+	// .meeting__list
+	&__list {
+		&:not(:last-child) {
+			margin-bottom: toRem(25);
+		}
+	}
+	// .meeting__button
+	&__button {
+	}
+}

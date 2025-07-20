@@ -1,0 +1,16 @@
+@use "@styles/base/_mixins.scss" as *;
+
+.footer {
+	padding-block: toRem(20);
+	background-color: var(--bg-accent);
+	// .footer__container
+	&__container {
+	}
+	// .footer__copy
+	&__copy {
+		text-align: center;
+		font-weight: 400;
+		font-size: toRem(14);
+		color: #fff;
+	}
+}

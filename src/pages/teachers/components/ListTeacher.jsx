@@ -13,11 +13,12 @@ function ListTeacher({
 		animationDelay: `${indexElement * 0.15}s`
 	})
 
-	const createActions = id => {
+	const createActions = teacher => {
 		return (
 			<div className="list-teachers__actions">
 				<Link
-					to={frontRoutes.navigate.teachers.getEdit(id)}
+					to={frontRoutes.navigate.teachers.getEdit(teacher.id)}
+					state={{ teacher: { ...teacher } }}
 					className="list-teachers__button button"
 				>
 					Edit
@@ -25,7 +26,7 @@ function ListTeacher({
 				<button
 					type="button"
 					className="list-teachers__button button button--red"
-					onClick={() => onDelete(id)}
+					onClick={() => onDelete(teacher.id)}
 				>
 					Delete
 				</button>
@@ -53,7 +54,7 @@ function ListTeacher({
 						}
 						{...teacher}
 					/>
-					{onDelete && createActions(teacher.id)}
+					{onDelete && createActions(teacher)}
 				</div>
 			))}
 		</div>

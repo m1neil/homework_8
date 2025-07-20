@@ -1,0 +1,13 @@
+@use "@styles/base/mixins" as *;
+
+.about {
+	// .about__container
+	&__container {
+	}
+	// .about__title
+	&__title {
+		&:not(:last-child) {
+			margin-bottom: toRem(25);
+		}
+	}
+}
