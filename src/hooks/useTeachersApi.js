@@ -20,14 +20,14 @@ const useTeachersApi = (isInitLoading = false) => {
 		}
 	}, [])
 
-	const deleteTeacherById = async id => {
+	const deleteTeacherById = useCallback(async id => {
 		setError(null)
 		try {
 			await axios.delete(apiRoutes.deleteTeacherById(id))
 		} catch (error) {
 			setError(error)
 		}
-	}
+	}, [])
 
 	return { data, isLoading, error, setData, getAllTeachers, deleteTeacherById }
 }
