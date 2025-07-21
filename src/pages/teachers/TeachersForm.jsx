@@ -56,13 +56,6 @@ function TeachersForm() {
 	}
 
 	const isValidFormData = () => {
-		// if (!isFilledRequiredFields()) {
-		// 	setErrorData(
-		// 		'Check the filling of mandatory fields (the name of the teacher and the subject that he leads)'
-		// 	)
-		// 	return false
-		// } else setErrorData('')
-
 		if (teacher.photo.trim() && !isValidTeacherPhoto()) {
 			setErrorData('Not a valid photo address!')
 			return false
