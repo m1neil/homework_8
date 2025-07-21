@@ -60,7 +60,6 @@ function TeachersForm() {
 			setErrorData('Not a valid photo address!')
 			return false
 		} else setErrorData('')
-
 		return true
 	}
 
@@ -101,7 +100,11 @@ function TeachersForm() {
 	}
 
 	const isCanClear = () => {
-		return teacher.name.trim() || teacher.subject.trim() || teacher.photo.trim()
+		return !!(
+			teacher.name.trim() ||
+			teacher.subject.trim() ||
+			teacher.photo.trim()
+		)
 	}
 
 	return (
