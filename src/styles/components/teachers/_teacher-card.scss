@@ -47,6 +47,7 @@
 		a {
 			transition: color 0.3s;
 			display: block;
+			text-transform: capitalize;
 			text-overflow: ellipsis;
 			overflow: hidden;
 			white-space: nowrap;
@@ -62,6 +63,7 @@
 		text-overflow: ellipsis;
 		overflow: hidden;
 		white-space: nowrap;
+		text-transform: capitalize;
 		span {
 			font-weight: 600;
 		}
