@@ -12,8 +12,5 @@ export default defineConfig({
 			'@styles': '/src/styles',
 			'@img': '/src/assets'
 		}
-	},
-	server: {
-		historyApiFallback: true
 	}
 })
