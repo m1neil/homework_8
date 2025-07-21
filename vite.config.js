@@ -10,7 +10,10 @@ export default defineConfig({
 			'@components': '/src/components', // Алиас для папки components,
 			'@pages': '/src/pages',
 			'@styles': '/src/styles',
-			'@img': '/src/assets',
-		},
+			'@img': '/src/assets'
+		}
 	},
+	server: {
+		historyApiFallback: true
+	}
 })
