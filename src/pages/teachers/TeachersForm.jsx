@@ -117,7 +117,7 @@ function TeachersForm() {
 					<div className="form__body">
 						<div className="form__row">
 							<label htmlFor="name" className="form__label">
-								Имя
+								Name
 							</label>
 							<input
 								name="name"
@@ -132,7 +132,7 @@ function TeachersForm() {
 						</div>
 						<div className="form__row">
 							<label htmlFor="subject" className="form__label">
-								Предмет
+								Item
 							</label>
 							<input
 								name="subject"
@@ -147,7 +147,7 @@ function TeachersForm() {
 						</div>
 						<div className="form__row">
 							<label htmlFor="photo" className="form__label">
-								Фото
+								Photo
 							</label>
 							<input
 								name="photo"
