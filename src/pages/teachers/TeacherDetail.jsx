@@ -1,6 +1,6 @@
+import frontRoutes from '@src/routes/frontRoutes'
 import { useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router'
-import frontRoutes from '../../routes/frontRoutes'
 
 function TeacherDetail() {
 	const { state } = useLocation()

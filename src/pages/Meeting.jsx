@@ -1,5 +1,5 @@
+import frontRoutes from '@src/routes/frontRoutes'
 import { Link, useLocation } from 'react-router'
-import frontRoutes from '../routes/frontRoutes'
 import ListTeacher from './teachers/components/ListTeacher'
 
 function Meeting() {

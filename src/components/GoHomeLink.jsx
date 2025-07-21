@@ -1,5 +1,5 @@
+import frontRoutes from '@src/routes/frontRoutes'
 import { Link } from 'react-router'
-import frontRoutes from '../routes/frontRoutes'
 
 function GoHomeLink() {
 	return (

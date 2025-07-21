@@ -34,6 +34,7 @@
 	// .teacher-card__body
 	&__body {
 		flex-grow: 1;
+		min-width: 0;
 	}
 	// .teacher-card__name
 	&__name {
@@ -41,8 +42,14 @@
 		color: var(--accent);
 		font-weight: 600;
 		font-size: toRem(18);
+		display: flex;
+		justify-content: flex-start;
 		a {
 			transition: color 0.3s;
+			display: block;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			white-space: nowrap;
 			@media (any-hover: hover) {
 				&:hover {
 					color: var(--green);
@@ -52,11 +59,15 @@
 	}
 	// .teacher-card__subject
 	&__subject {
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
 		span {
 			font-weight: 600;
 		}
 	}
 	// .teacher-card__button
 	&__button {
+		flex-shrink: 0;
 	}
 }

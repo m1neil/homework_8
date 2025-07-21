@@ -1,4 +1,4 @@
-import GoHomeLink from '../components/GoHomeLink'
+import GoHomeLink from '@components/GoHomeLink'
 
 function Page404() {
 	return (

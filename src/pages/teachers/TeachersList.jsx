@@ -1,9 +1,8 @@
 import Loader from '@components/Loader'
 import useTeachersApi from '@src/hooks/useTeachersApi'
+import frontRoutes from '@src/routes/frontRoutes'
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router'
-import ErrorMessage from '../../components/ErrorMessage'
-import frontRoutes from '../../routes/frontRoutes'
 import ListTeacher from './components/ListTeacher'
 
 function TeachersList() {
@@ -47,26 +46,6 @@ function TeachersList() {
 		})
 	}
 
-	let content
-	if (isLoading) {
-		content = (
-			<div className="teachers__loader">
-				<Loader />
-			</div>
-		)
-	} else if (error) {
-		content = <ErrorMessage text={error.message} />
-	} else
-		content = (
-			<ListTeacher
-				className="teachers__list"
-				teachersList={teachers}
-				selectedTeachersId={selectedTeachersId}
-				onSelect={onSelect}
-				onDelete={onDelete}
-			/>
-		)
-
 	return (
 		<section className="teachers">
 			<div className="teachers__container">
@@ -89,7 +68,21 @@ function TeachersList() {
 						</button>
 					)}
 				</div>
-				{content}
+				{!isLoading && !error && (
+					<ListTeacher
+						className="teachers__list"
+						teachersList={teachers}
+						selectedTeachersId={selectedTeachersId}
+						onSelect={onSelect}
+						onDelete={onDelete}
+					/>
+				)}
+				{isLoading && (
+					<div className="teachers__loader">
+						<Loader />
+					</div>
+				)}
+				{error && <ErrorMessage text={error.message} />}
 			</div>
 		</section>
 	)

@@ -1,5 +1,5 @@
 import { Link } from 'react-router'
-import frontRoutes from '../routes/frontRoutes'
+import frontRoutes from '@src/routes/frontRoutes'
 
 function Home() {
 	return (

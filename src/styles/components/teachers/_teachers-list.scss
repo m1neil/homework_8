@@ -48,6 +48,7 @@
 	&__item {
 		animation: smooth-show 0.7s forwards ease;
 		opacity: 0;
+		min-width: 0;
 		.teacher-card:not(:last-child) {
 			margin-bottom: toRem(15);
 		}

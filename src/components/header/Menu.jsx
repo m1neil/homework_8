@@ -1,5 +1,5 @@
+import frontRoutes from '@src/routes/frontRoutes'
 import { NavLink } from 'react-router'
-import frontRoutes from '../../routes/frontRoutes'
 
 function Menu({ className }) {
 	const { navigate } = frontRoutes

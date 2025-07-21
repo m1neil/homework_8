@@ -36,7 +36,7 @@ const useTeachersApi = (isInitLoading = false) => {
 	const deleteTeacherById = useCallback(async id => {
 		setError(null)
 		try {
-			await axios.delete(apiRoutes.deleteTeacherById(id))
+			axios.delete(apiRoutes.deleteTeacherById(id))
 		} catch (error) {
 			setError(error)
 		}
@@ -46,7 +46,7 @@ const useTeachersApi = (isInitLoading = false) => {
 		setIsLoading(true)
 		setError(null)
 		try {
-			await axios.post(apiRoutes.setNewTeacher, newTeacher)
+			axios.post(apiRoutes.setNewTeacher, newTeacher)
 		} catch (error) {
 			setError(error)
 		} finally {
@@ -58,7 +58,7 @@ const useTeachersApi = (isInitLoading = false) => {
 		setIsLoading(true)
 		setError(null)
 		try {
-			await axios.put(apiRoutes.updateTeacherById(teacher.id), teacher)
+			axios.put(apiRoutes.updateTeacherById(teacher.id), teacher)
 		} catch (error) {
 			setError(error)
 		} finally {

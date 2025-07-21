@@ -1,7 +1,7 @@
+import ErrorMessage from '@components/ErrorMessage'
+import useTeachersApi from '@src/hooks/useTeachersApi'
 import { useState } from 'react'
 import { useLocation } from 'react-router'
-import ErrorMessage from '../../components/ErrorMessage'
-import useTeachersApi from '../../hooks/useTeachersApi'
 
 const isEqualObjects = (a, b) => JSON.stringify(a) === JSON.stringify(b)
 
@@ -12,24 +12,73 @@ function TeachersForm() {
 	)
 	const { isLoading, error, setNewTeacher, updateTeacher } = useTeachersApi()
 	const [errorData, setErrorData] = useState('')
+	const [isDisabledSendData, setIsDisabledSendData] = useState(true)
 
 	const handleTeacherChange = e => {
 		const input = e.target
 		const value = input.value
 		const nameField = input.name
-		setTeacher(prevTeacher => ({ ...prevTeacher, [nameField]: value }))
+		const newTeacher = { ...teacher, [nameField]: value }
+		setTeacher(() => newTeacher)
+		setIsDisabledSendData(
+			!isFilledRequiredFields(newTeacher) ||
+				(state?.teacher &&
+					setIsDisabledSendData(isEqualObjects(state.teacher, newTeacher)))
+		)
+	}
+
+	const onRemoveError = () => {
+		if (errorData) setErrorData('')
+	}
+
+	const onSubmit = async e => {
+		e.preventDefault()
+		if (!isValidFormData()) return
+
+		const methodFetch = state?.teacher ? 'put' : 'post'
+		const transformTeacher = trimTeacher()
+
+		if (
+			methodFetch === 'put' &&
+			isEqualObjects(transformTeacher, state.teacher)
+		) {
+			setErrorData('Data has not changed!')
+			return
+		} else setErrorData('')
+
+		if (methodFetch === 'post') {
+			await setNewTeacher(transformTeacher)
+			cancelData()
+		} else {
+			await updateTeacher(transformTeacher)
+			state.teacher = { ...transformTeacher }
+			setIsDisabledSendData(true)
+		}
+	}
+
+	const isValidFormData = () => {
+		if (!isFilledRequiredFields()) {
+			setErrorData(
+				'Check the filling of mandatory fields (the name of the teacher and the subject that he leads)'
+			)
+			return false
+		} else setErrorData('')
+
+		if (teacher.photo.trim() && !isValidTeacherPhoto()) {
+			setErrorData('Not a valid photo address!')
+			return false
+		} else setErrorData('')
+
+		return true
 	}
 
 	const isValidTeacherPhoto = () => {
 		const regExp = /^(https?:\/\/.*\.(jpg|jpeg|webp|png))$/
-		const isValidAddress = regExp.test(teacher.photo)
-		if (!isValidAddress) setErrorData('Not a valid photo address!')
-		else setErrorData('')
-		return isValidAddress
+		return regExp.test(teacher.photo)
 	}
 
-	const isFilledRequiredFields = () => {
-		return teacher.name.trim() && teacher.subject.trim()
+	const isFilledRequiredFields = (teacherData = teacher) => {
+		return teacherData.name.trim() && teacherData.subject.trim()
 	}
 
 	const trimTeacher = () => {
@@ -41,29 +90,6 @@ function TeachersForm() {
 		return transformTeacher
 	}
 
-	const onSubmit = async e => {
-		e.preventDefault()
-
-		if (!isFilledRequiredFields()) {
-			setErrorData(
-				'Check the filling of mandatory fields (the name of the teacher and the subject that he leads)'
-			)
-			return
-		} else setErrorData('')
-		if (teacher.photo.trim() && !isValidTeacherPhoto()) return
-
-		const methodFetch = state?.teacher ? 'put' : 'post'
-		const transformTeacher = trimTeacher()
-
-		if (methodFetch === 'post') {
-			await setNewTeacher(transformTeacher)
-			cancelData()
-		} else {
-			await updateTeacher(transformTeacher)
-			state.teacher = { ...transformTeacher }
-		}
-	}
-
 	const cancelData = () => {
 		setTeacher(prevTeacher => ({
 			...prevTeacher,
@@ -71,6 +97,7 @@ function TeachersForm() {
 			subject: '',
 			photo: ''
 		}))
+		setIsDisabledSendData(true)
 	}
 
 	const getTextButtonSubmit = () => {
@@ -83,10 +110,6 @@ function TeachersForm() {
 
 	const isCanClear = () => {
 		return teacher.name.trim() || teacher.subject.trim() || teacher.photo.trim()
-	}
-
-	const onRemoveError = () => {
-		if (errorData) setErrorData('')
 	}
 
 	return (
@@ -145,10 +168,7 @@ function TeachersForm() {
 					</div>
 					<div className="form__actions">
 						<button
-							disabled={
-								isLoading ||
-								(state?.teacher && isEqualObjects(teacher, state?.teacher))
-							}
+							disabled={isLoading || isDisabledSendData}
 							type="submit"
 							className="form__button button button--green"
 						>
