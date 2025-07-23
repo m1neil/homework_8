@@ -1,6 +1,6 @@
 import ErrorMessage from '@components/ErrorMessage'
 import useTeachersApi from '@src/hooks/useTeachersApi'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router'
 
 const isEqualObjects = (a, b) => JSON.stringify(a) === JSON.stringify(b)
@@ -8,16 +8,25 @@ const isEqualObjects = (a, b) => JSON.stringify(a) === JSON.stringify(b)
 function TeachersForm() {
 	const { state } = useLocation()
 	const [teacher, setTeacher] = useState(() =>
-		state?.teacher ? { ...state.teacher } : { name: '', subject: '', photo: '' }
+		state?.teacher
+			? { ...state.teacher }
+			: { name: '', subjectId: '', photo: '' }
 	)
-	const { isLoading, error, setNewTeacher, updateTeacher } = useTeachersApi()
+	const {
+		data: subjects,
+		isLoading,
+		error,
+		setNewTeacher,
+		updateTeacher,
+		getAllSubjects
+	} = useTeachersApi()
 	const [errorData, setErrorData] = useState('')
 	const [isDisabledSendData, setIsDisabledSendData] = useState(true)
 
 	const handleTeacherChange = e => {
-		const input = e.target
-		const value = input.value
-		const nameField = input.name
+		const target = e.target
+		const value = target.value
+		const nameField = target.name
 		const newTeacher = { ...teacher, [nameField]: value }
 		setTeacher(() => newTeacher)
 		setIsDisabledSendData(
@@ -25,6 +34,10 @@ function TeachersForm() {
 				(state?.teacher && isEqualObjects(state.teacher, newTeacher))
 		)
 	}
+
+	useEffect(() => {
+		getAllSubjects()
+	}, [])
 
 	const onRemoveError = () => {
 		if (errorData) setErrorData('')
@@ -37,6 +50,8 @@ function TeachersForm() {
 		const methodFetch = state?.teacher ? 'put' : 'post'
 		const transformTeacher = trimTeacher()
 
+		console.log(JSON.stringify(transformTeacher))
+
 		if (
 			methodFetch === 'put' &&
 			isEqualObjects(transformTeacher, state.teacher)
@@ -44,6 +59,8 @@ function TeachersForm() {
 			setErrorData('Data has not changed!')
 			return
 		} else setErrorData('')
+
+		console.log(JSON.stringify(transformTeacher))
 
 		if (methodFetch === 'post') {
 			await setNewTeacher(transformTeacher)
@@ -69,12 +86,13 @@ function TeachersForm() {
 	}
 
 	const isFilledRequiredFields = (teacherData = teacher) => {
-		return teacherData.name.trim() && teacherData.subject.trim()
+		return teacherData.name.trim() && teacherData.subjectId
 	}
 
 	const trimTeacher = () => {
 		const transformTeacher = {}
 		for (const key in teacher) {
+			if (key === 'subject') continue
 			const value = teacher[key]
 			transformTeacher[key] = typeof value === 'string' ? value.trim() : value
 		}
@@ -85,7 +103,7 @@ function TeachersForm() {
 		setTeacher(prevTeacher => ({
 			...prevTeacher,
 			name: '',
-			subject: '',
+			subjectId: '',
 			photo: ''
 		}))
 		setIsDisabledSendData(true)
@@ -100,11 +118,7 @@ function TeachersForm() {
 	}
 
 	const isCanClear = () => {
-		return !!(
-			teacher.name.trim() ||
-			teacher.subject.trim() ||
-			teacher.photo.trim()
-		)
+		return !!(teacher.name.trim() || teacher.subjectId || teacher.photo.trim())
 	}
 
 	return (
@@ -131,19 +145,29 @@ function TeachersForm() {
 							/>
 						</div>
 						<div className="form__row">
-							<label htmlFor="subject" className="form__label">
-								Item
+							<label htmlFor="subjectId" className="form__label">
+								Subject
 							</label>
-							<input
-								name="subject"
-								id="subject"
-								value={teacher.subject}
-								type="text"
-								className="form__input input"
-								placeholder="The Vedas subject the teacher"
+							<select
+								value={teacher.subjectId}
+								name="subjectId"
+								id="subjectId"
+								className="form__select select"
 								onChange={handleTeacherChange}
-								onFocus={onRemoveError}
-							/>
+							>
+								<option value="" disabled className="select__option">
+									Select the subject
+								</option>
+								{subjects.map(subject => (
+									<option
+										key={subject.id}
+										value={subject.id}
+										className="select__option"
+									>
+										{subject.name}
+									</option>
+								))}
+							</select>
 						</div>
 						<div className="form__row">
 							<label htmlFor="photo" className="form__label">

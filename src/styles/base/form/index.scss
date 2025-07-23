@@ -1,6 +1,7 @@
 @use "@styles/base/mixins" as *;
 @forward "./button";
 @forward "./input";
+@forward "./select";
 
 .form {
 	// .form__body
@@ -21,6 +22,9 @@
 	}
 	// .form__input
 	&__input {
+	}
+	// .form__select
+	&__select {
 	}
 	// .form__actions
 	&__actions {

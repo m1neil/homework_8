@@ -5,8 +5,8 @@ import TeacherCard from './TeacherCard'
 function ListTeacher({
 	className,
 	teachersList,
-	onSelect,
 	selectedTeachersId,
+	onSelect,
 	onDelete
 }) {
 	const getAnimationDelay = indexElement => ({
@@ -47,11 +47,7 @@ function ListTeacher({
 				>
 					<TeacherCard
 						onSelect={onSelect ?? false}
-						isSelect={
-							selectedTeachersId
-								? selectedTeachersId.includes(teacher.id)
-								: false
-						}
+						isSelect={selectedTeachersId.includes(teacher.id)}
 						{...teacher}
 					/>
 					{onDelete && createActions(teacher)}

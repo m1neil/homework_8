@@ -58,7 +58,42 @@ const useTeachersApi = (isInitLoading = false) => {
 		setIsLoading(true)
 		setError(null)
 		try {
-			axios.put(apiRoutes.updateTeacherById(teacher.id), teacher)
+			axios.put(apiRoutes.updateTeacherById, teacher)
+		} catch (error) {
+			setError(error)
+		} finally {
+			setIsLoading(false)
+		}
+	}, [])
+
+	const getAllSubjects = useCallback(async () => {
+		setIsLoading(true)
+		setError(null)
+		try {
+			const response = await axios.get(apiRoutes.getAllSubjects)
+			setData(response.data)
+		} catch (error) {
+			setError(error)
+		} finally {
+			setIsLoading(false)
+		}
+	}, [])
+
+	const setCallTeachersToMeeting = useCallback(async teacher => {
+		setError(null)
+		try {
+			axios.put(apiRoutes.setCallTeachersToMeeting, teacher)
+		} catch (error) {
+			setError(error)
+		} finally {
+			setIsLoading(false)
+		}
+	}, [])
+
+	const cancelTeachersFromMeeting = useCallback(async teacherId => {
+		setError(null)
+		try {
+			axios.post(apiRoutes.cancelTeachersFromMeeting, teacherId)
 		} catch (error) {
 			setError(error)
 		} finally {
@@ -75,7 +110,10 @@ const useTeachersApi = (isInitLoading = false) => {
 		deleteTeacherById,
 		setNewTeacher,
 		updateTeacher,
-		getTeacherById
+		getTeacherById,
+		getAllSubjects,
+		setCallTeachersToMeeting,
+		cancelTeachersFromMeeting
 	}
 }
 

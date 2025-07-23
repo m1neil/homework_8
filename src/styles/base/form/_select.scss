@@ -1,0 +1,85 @@
+@use "@styles/base/_mixins.scss" as *;
+
+select,
+::picker(select) {
+	appearance: base-select;
+}
+select::picker-icon {
+	transition: transform 0.3s;
+}
+select:open::picker-icon {
+	transform: rotate(180deg);
+}
+
+::picker(select) {
+	border: none;
+	opacity: 0;
+	transform: translate(0, toRem(10));
+	transition: all 0.3s allow-discrete;
+	top: calc(anchor(bottom) + toRem(10));
+	left: 0;
+	border-radius: toRem(5);
+	border: toRem(1) solid #b4b4b4;
+	&:popover-open {
+		opacity: 1;
+		transform: translate(0, 0);
+	}
+}
+@starting-style {
+	::picker(select):popover-open {
+		opacity: 0;
+		transform: translate(0, toRem(10));
+	}
+}
+
+.select {
+	display: block;
+	width: 100%;
+	border: toRem(1) solid #b4b4b4;
+	border-radius: toRem(4);
+	padding: toRem(12);
+	height: toRem(38);
+	font-size: toRem(14);
+	color: #000;
+	transition: outline-color 0.3s;
+	outline: toRem(2) solid transparent;
+	outline-offset: toRem(-1);
+	transition: background-color 0.3s;
+	@media (any-hover: hover) {
+		&:hover {
+			background-color: lightgray;
+		}
+	}
+	// .select__option
+	&__option {
+		display: flex;
+		justify-content: space-between;
+		column-gap: toRem(15);
+		padding: toRem(10) toRem(10);
+		font-weight: 500;
+		transition:
+			background-color 0.3s,
+			color 0.3s;
+		&::checkmark {
+			content: "";
+			background: url("@img/icons/checkmark.svg") center / contain no-repeat;
+			width: toRem(20);
+			aspect-ratio: 1;
+			flex-shrink: 0;
+			order: 1;
+		}
+		&:not(:last-child) {
+			border-bottom: toRem(1) solid #666;
+		}
+		&:checked {
+			background-color: var(--bg-accent);
+			color: #fff;
+		}
+		@media (any-hover: hover) {
+			&:hover:not(:checked) {
+				background-color: var(--bg-accent);
+				color: #fff;
+			}
+		}
+	}
+}

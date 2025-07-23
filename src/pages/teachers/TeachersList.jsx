@@ -12,7 +12,9 @@ function TeachersList() {
 		error,
 		setData: setTeachers,
 		getAllTeachers,
-		deleteTeacherById
+		deleteTeacherById,
+		setCallTeachersToMeeting,
+		cancelTeachersFromMeeting
 	} = useTeachersApi(true)
 	const [selectedTeachersId, setSelectedTeachersId] = useState(() => [])
 	const navigate = useNavigate()
@@ -21,12 +23,33 @@ function TeachersList() {
 		getAllTeachers()
 	}, [])
 
+	useEffect(() => {
+		if (!teachers.length) return
+		const amountCallTeachers = teachers.reduce(
+			(teachersOnMeeting, curTeacher) =>
+				curTeacher.meeting
+					? [...teachersOnMeeting, curTeacher.id]
+					: teachersOnMeeting,
+			[]
+		)
+		setSelectedTeachersId(amountCallTeachers)
+	}, [teachers])
+
 	const onSelect = idTeacher => {
 		if (selectedTeachersId.includes(idTeacher)) {
-			setSelectedTeachersId(prevListIds =>
-				prevListIds.filter(id => id !== idTeacher)
+			setSelectedTeachersId(prevList => prevList.filter(id => id !== idTeacher))
+			cancelTeachersFromMeeting({ id: idTeacher })
+		} else {
+			setSelectedTeachersId(prevListIds => [...prevListIds, idTeacher])
+			setCallTeachersToMeeting({ teacherIds: [idTeacher] })
+		}
+		setTeachers(prevTeachers =>
+			prevTeachers.map(teacher =>
+				teacher.id === idTeacher
+					? { ...teacher, meeting: !teacher.meeting }
+					: teacher
 			)
-		} else setSelectedTeachersId(prevListIds => [...prevListIds, idTeacher])
+		)
 	}
 
 	const onDelete = idTeacher => {
@@ -34,16 +57,6 @@ function TeachersList() {
 			prevList.filter(teacher => teacher.id !== idTeacher)
 		)
 		deleteTeacherById(idTeacher)
-	}
-
-	const onCallTeachersToMeet = () => {
-		navigate(frontRoutes.navigate.meeting, {
-			state: {
-				teachers: teachers.filter(teacher =>
-					selectedTeachersId.includes(teacher.id)
-				)
-			}
-		})
 	}
 
 	return (
@@ -58,14 +71,9 @@ function TeachersList() {
 						Add new teacher
 					</Link>
 					{teachers.length > 0 && (
-						<button
-							disabled={!selectedTeachersId.length}
-							type="button"
-							className="teachers__button button"
-							onClick={onCallTeachersToMeet}
-						>
-							Call {selectedTeachersId.length} teachers for fees
-						</button>
+						<div type="button" className="teachers__info">
+							Call ${selectedTeachersId.length} teachers for fees
+						</div>
 					)}
 				</div>
 				{!isLoading && !error && (

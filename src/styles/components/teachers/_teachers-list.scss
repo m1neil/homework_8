@@ -16,6 +16,7 @@
 		}
 		@media (min-width: toEm(436)) {
 			display: flex;
+			align-items: center;
 			column-gap: toRem(15);
 		}
 	}
@@ -27,6 +28,9 @@
 				margin-bottom: toRem(12);
 			}
 		}
+	}
+	&__info {
+		font-weight: 600;
 	}
 	// .teachers__list
 	&__list {
