@@ -1,12 +1,17 @@
 import frontRoutes from '@src/routes/frontRoutes'
-import { Link } from 'react-router'
+import { Link, useLocation } from 'react-router'
 
 function TeacherCard({ id, name, subject, photo, isSelect, onSelect }) {
+	const { pathname } = useLocation()
+
 	return (
 		<article className="teacher-card">
 			<Link
 				to={frontRoutes.navigate.teachers.getDetail(id)}
-				state={{ teacher: { name, subject, photo } }}
+				state={{
+					teacher: { name, subject, photo },
+					pageFrom: pathname
+				}}
 				className="teacher-card__img"
 			>
 				<img className="ibg" src={photo} alt="Photo of the teacher-card" />
@@ -15,7 +20,10 @@ function TeacherCard({ id, name, subject, photo, isSelect, onSelect }) {
 				<h3 className="teacher-card__name">
 					<Link
 						to={frontRoutes.navigate.teachers.getDetail(id)}
-						state={{ teacher: { name, subject, photo } }}
+						state={{
+							teacher: { name, subject, photo },
+							pageFrom: pathname
+						}}
 					>
 						{name}
 					</Link>

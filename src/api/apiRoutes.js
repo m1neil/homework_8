@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:8080'
+const API_BASE_URL = 'https://appteacher-webapi-production.up.railway.app'
 
 const apiRoutes = {
 	// teachers ====================================================

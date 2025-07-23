@@ -3,16 +3,29 @@ import { useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router'
 
 function TeacherDetail() {
-	const { state, pathname } = useLocation()
+	const { state } = useLocation()
 	const navigate = useNavigate()
-
-	console.log(pathname)
 
 	useEffect(() => {
 		if (!state?.teacher) navigate(frontRoutes.navigate.teachers.index)
 	}, [])
 
 	if (!state?.teacher) return
+
+	const getLinkFromPage = () => {
+		const fromPage = {
+			text: 'teachers',
+			link: frontRoutes.navigate.teachers.index
+		}
+		if (state?.pageFrom === frontRoutes.pages.meeting) {
+			fromPage.link = frontRoutes.navigate.meeting
+			fromPage.text = 'meeting'
+		}
+		return fromPage
+	}
+
+	const fromPage = getLinkFromPage()
+	console.log(fromPage)
 
 	const { teacher } = state
 	return (
@@ -25,11 +38,8 @@ function TeacherDetail() {
 				<div className="detail__subject">
 					<span>Subject:</span> {teacher.subject}
 				</div>
-				<Link
-					to={frontRoutes.navigate.teachers.index}
-					className="detail__button button"
-				>
-					On the page of teachers
+				<Link to={fromPage.link} className="detail__button button">
+					On the page of {fromPage.text}
 				</Link>
 			</div>
 		</section>

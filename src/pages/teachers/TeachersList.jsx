@@ -2,7 +2,7 @@ import Loader from '@components/Loader'
 import useTeachersApi from '@src/hooks/useTeachersApi'
 import frontRoutes from '@src/routes/frontRoutes'
 import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router'
+import { Link } from 'react-router'
 import ListTeacher from './components/ListTeacher'
 
 function TeachersList() {
