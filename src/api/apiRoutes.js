@@ -4,10 +4,11 @@ const apiRoutes = {
 	// teachers ====================================================
 	getAllTeachers: `${API_BASE_URL}/api/Teacher/GetTeachers`, // method get
 	setNewTeacher: `${API_BASE_URL}/api/Teacher/CreateTeacher`, // method post
-	getTeacherById: id => `${API_BASE_URL}/api/teachers/${id}`, // method get
-	setCallTeachersToMeeting: `${API_BASE_URL}/api/Teacher/CallTeachersToMeeting`,
-	cancelTeachersFromMeeting: `${API_BASE_URL}/api/Teacher/CancelTeachersToMeeting`,
+	setCallTeachersToMeeting: `${API_BASE_URL}/api/Teacher/CallTeachersToMeeting`, // method putt
+	cancelTeachersFromMeeting: `${API_BASE_URL}/api/Teacher/CancelTeachersToMeeting`, // method post
 	updateTeacherById: `${API_BASE_URL}/api/Teacher/UpdateTeacher`, // method put
+	getTeachesMeeting: `${API_BASE_URL}/api/Teacher/GetTeachesMeeting`, //method get
+	getTeacherById: id => `${API_BASE_URL}/api/teachers/${id}`, // method get
 	deleteTeacherById: id => `${API_BASE_URL}/api/Teacher/DeleteTeacher/${id}`, // method delete
 	// subjects ====================================================
 	getAllSubjects: `${API_BASE_URL}/api/Subject/GetSubjects`,

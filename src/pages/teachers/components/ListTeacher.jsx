@@ -47,7 +47,9 @@ function ListTeacher({
 				>
 					<TeacherCard
 						onSelect={onSelect ?? false}
-						isSelect={selectedTeachersId.includes(teacher.id)}
+						isSelect={
+							selectedTeachersId && selectedTeachersId.includes(teacher.id)
+						}
 						{...teacher}
 					/>
 					{onDelete && createActions(teacher)}

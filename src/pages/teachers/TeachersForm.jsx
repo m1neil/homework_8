@@ -22,6 +22,7 @@ function TeachersForm() {
 	} = useTeachersApi()
 	const [errorData, setErrorData] = useState('')
 	const [isDisabledSendData, setIsDisabledSendData] = useState(true)
+	const DEFAULT_PHOTO = 'https://cdn-icons-png.flaticon.com/512/168/168726.png'
 
 	const handleTeacherChange = e => {
 		const target = e.target
@@ -94,7 +95,10 @@ function TeachersForm() {
 		for (const key in teacher) {
 			if (key === 'subject') continue
 			const value = teacher[key]
-			transformTeacher[key] = typeof value === 'string' ? value.trim() : value
+			if (key === 'photo' && !value) {
+				transformTeacher[key] = DEFAULT_PHOTO
+			} else
+				transformTeacher[key] = typeof value === 'string' ? value.trim() : value
 		}
 		return transformTeacher
 	}

@@ -3,8 +3,10 @@ import { useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router'
 
 function TeacherDetail() {
-	const { state } = useLocation()
+	const { state, pathname } = useLocation()
 	const navigate = useNavigate()
+
+	console.log(pathname)
 
 	useEffect(() => {
 		if (!state?.teacher) navigate(frontRoutes.navigate.teachers.index)

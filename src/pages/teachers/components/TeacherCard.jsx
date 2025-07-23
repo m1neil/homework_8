@@ -1,5 +1,5 @@
-import { Link } from 'react-router'
 import frontRoutes from '@src/routes/frontRoutes'
+import { Link } from 'react-router'
 
 function TeacherCard({ id, name, subject, photo, isSelect, onSelect }) {
 	return (

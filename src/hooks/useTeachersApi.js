@@ -20,6 +20,19 @@ const useTeachersApi = (isInitLoading = false) => {
 		}
 	}, [])
 
+	const getTeachesMeeting = useCallback(async () => {
+		setIsLoading(true)
+		setError(null)
+		try {
+			const response = await axios.get(apiRoutes.getTeachesMeeting)
+			setData(response.data)
+		} catch (error) {
+			setError(error)
+		} finally {
+			setIsLoading(false)
+		}
+	}, [])
+
 	const getTeacherById = useCallback(async id => {
 		setIsLoading(true)
 		setError(null)
@@ -113,7 +126,8 @@ const useTeachersApi = (isInitLoading = false) => {
 		getTeacherById,
 		getAllSubjects,
 		setCallTeachersToMeeting,
-		cancelTeachersFromMeeting
+		cancelTeachersFromMeeting,
+		getTeachesMeeting
 	}
 }
 

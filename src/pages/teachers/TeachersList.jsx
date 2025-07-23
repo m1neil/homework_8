@@ -17,11 +17,12 @@ function TeachersList() {
 		cancelTeachersFromMeeting
 	} = useTeachersApi(true)
 	const [selectedTeachersId, setSelectedTeachersId] = useState(() => [])
-	const navigate = useNavigate()
 
 	useEffect(() => {
 		getAllTeachers()
 	}, [])
+
+	console.log(teachers)
 
 	useEffect(() => {
 		if (!teachers.length) return
@@ -72,7 +73,7 @@ function TeachersList() {
 					</Link>
 					{teachers.length > 0 && (
 						<div type="button" className="teachers__info">
-							Call ${selectedTeachersId.length} teachers for fees
+							Call {selectedTeachersId.length} teachers for fees
 						</div>
 					)}
 				</div>

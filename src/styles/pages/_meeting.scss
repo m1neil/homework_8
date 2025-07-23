@@ -20,6 +20,13 @@
 			margin-bottom: toRem(25);
 		}
 	}
+	// .meeting__loader
+	&__loader {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-height: toRem(139);
+	}
 	// .meeting__button
 	&__button {
 	}
