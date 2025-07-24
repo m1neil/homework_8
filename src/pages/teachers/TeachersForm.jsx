@@ -1,12 +1,14 @@
 import ErrorMessage from '@components/ErrorMessage'
 import useTeachersApi from '@src/hooks/useTeachersApi'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router'
 
 const isEqualObjects = (a, b) => JSON.stringify(a) === JSON.stringify(b)
 
 function TeachersForm() {
 	const { state } = useLocation()
+	const [isSuccess, setIsSuccess] = useState(false)
+	const refInterval = useRef(null)
 	const [teacher, setTeacher] = useState(() =>
 		state?.teacher
 			? { ...state.teacher }
@@ -23,6 +25,14 @@ function TeachersForm() {
 	const [errorData, setErrorData] = useState('')
 	const [isDisabledSendData, setIsDisabledSendData] = useState(true)
 	const DEFAULT_PHOTO = 'https://cdn-icons-png.flaticon.com/512/168/168726.png'
+
+	useEffect(() => {
+		if (!isSuccess) return
+		refInterval.current = setTimeout(() => {
+			setIsSuccess(false)
+		}, 3000)
+		return () => clearTimeout(refInterval.current)
+	}, [isSuccess])
 
 	const handleTeacherChange = e => {
 		const target = e.target
@@ -46,6 +56,8 @@ function TeachersForm() {
 
 	const onSubmit = async e => {
 		e.preventDefault()
+		refInterval.current = null
+
 		if (!isValidFormData()) return
 
 		const methodFetch = state?.teacher ? 'put' : 'post'
@@ -67,6 +79,8 @@ function TeachersForm() {
 			state.teacher = { ...transformTeacher }
 			setIsDisabledSendData(true)
 		}
+
+		setIsSuccess(true)
 	}
 
 	const isValidFormData = () => {
@@ -202,6 +216,13 @@ function TeachersForm() {
 							Clear
 						</button>
 					</div>
+					{!errorData && !error && isSuccess && (
+						<div className="success">
+							{state?.teacher
+								? 'Учитель успешно обновлен'
+								: 'Учитель успешно добавлен'}
+						</div>
+					)}
 					{errorData && <ErrorMessage text={errorData} />}
 					{error && <ErrorMessage text={error} />}
 				</form>

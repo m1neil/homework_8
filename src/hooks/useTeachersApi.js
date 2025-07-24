@@ -2,8 +2,8 @@ import axios from 'axios'
 import { useCallback, useState } from 'react'
 import apiRoutes from '../api/apiRoutes'
 
-const useTeachersApi = (isInitLoading = false) => {
-	const [data, setData] = useState(() => [])
+const useTeachersApi = (initData = [], isInitLoading = false) => {
+	const [data, setData] = useState(() => initData)
 	const [isLoading, setIsLoading] = useState(isInitLoading)
 	const [error, setError] = useState(null)
 
@@ -49,7 +49,7 @@ const useTeachersApi = (isInitLoading = false) => {
 	const deleteTeacherById = useCallback(async id => {
 		setError(null)
 		try {
-			axios.delete(apiRoutes.deleteTeacherById(id))
+			await axios.delete(apiRoutes.deleteTeacherById(id))
 		} catch (error) {
 			setError(error)
 		}
