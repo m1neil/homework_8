@@ -25,7 +25,6 @@ function TeacherDetail() {
 	}
 
 	const fromPage = getLinkFromPage()
-	console.log(fromPage)
 
 	const { teacher } = state
 	return (

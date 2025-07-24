@@ -22,8 +22,6 @@ function TeachersList() {
 		getAllTeachers()
 	}, [])
 
-	console.log(teachers)
-
 	useEffect(() => {
 		if (!teachers.length) return
 		const amountCallTeachers = teachers.reduce(

@@ -7,7 +7,6 @@ import useTeachersApi from '../hooks/useTeachersApi'
 import ListTeacher from './teachers/components/ListTeacher'
 
 function Meeting() {
-	// const { state } = useLocation()
 	const {
 		data: teachers,
 		isLoading,
@@ -18,8 +17,6 @@ function Meeting() {
 	useEffect(() => {
 		getTeachesMeeting()
 	}, [])
-
-	console.log(teachers)
 
 	return (
 		<section className="meeting">

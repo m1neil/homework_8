@@ -51,8 +51,6 @@ function TeachersForm() {
 		const methodFetch = state?.teacher ? 'put' : 'post'
 		const transformTeacher = trimTeacher()
 
-		console.log(JSON.stringify(transformTeacher))
-
 		if (
 			methodFetch === 'put' &&
 			isEqualObjects(transformTeacher, state.teacher)
@@ -60,8 +58,6 @@ function TeachersForm() {
 			setErrorData('Data has not changed!')
 			return
 		} else setErrorData('')
-
-		console.log(JSON.stringify(transformTeacher))
 
 		if (methodFetch === 'post') {
 			await setNewTeacher(transformTeacher)

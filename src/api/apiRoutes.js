@@ -4,7 +4,7 @@ const apiRoutes = {
 	// teachers ====================================================
 	getAllTeachers: `${API_BASE_URL}/api/Teacher/GetTeachers`, // method get
 	setNewTeacher: `${API_BASE_URL}/api/Teacher/CreateTeacher`, // method post
-	setCallTeachersToMeeting: `${API_BASE_URL}/api/Teacher/CallTeachersToMeeting`, // method putt
+	setCallTeachersToMeeting: `${API_BASE_URL}/api/Teacher/CallTeachersToMeeting`, // method put
 	cancelTeachersFromMeeting: `${API_BASE_URL}/api/Teacher/CancelTeachersToMeeting`, // method post
 	updateTeacherById: `${API_BASE_URL}/api/Teacher/UpdateTeacher`, // method put
 	getTeachesMeeting: `${API_BASE_URL}/api/Teacher/GetTeachesMeeting`, //method get
