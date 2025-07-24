@@ -219,8 +219,8 @@ function TeachersForm() {
 					{!errorData && !error && isSuccess && (
 						<div className="success">
 							{state?.teacher
-								? 'Учитель успешно обновлен'
-								: 'Учитель успешно добавлен'}
+								? 'The teacher is successfully updated'
+								: 'The teacher is successfully added'}
 						</div>
 					)}
 					{errorData && <ErrorMessage text={errorData} />}
